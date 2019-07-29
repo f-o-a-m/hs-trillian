@@ -22,33 +22,48 @@ getSequencedLeafCount
   :: Api.GetSequencedLeafCountRequest
   -> RPCCall Api.TrillianLog "getSequencedLeafCount" (RawReply Api.GetSequencedLeafCountResponse)
 getSequencedLeafCount = singleRequest (RPC :: RPC Api.TrillianLog "getSequencedLeafCount")
---
---addSequencedLeaf :: UnaryHandler TrillianLog "addSequencedLeaf"
---addSequencedLeaf _ _ = return defMessage
---
---addSequencedLeaves :: UnaryHandler TrillianLog "addSequencedLeaves"
---addSequencedLeaves _ _ = return defMessage
---
---getLeavesByHash :: UnaryHandler TrillianLog "getLeavesByHash"
---getLeavesByHash _ _ = return defMessage
---
---getLeavesByIndex :: UnaryHandler TrillianLog "getLeavesByIndex"
---getLeavesByIndex _ _ = return defMessage
---
---getLeavesByRange :: UnaryHandler TrillianLog "getLeavesByRange"
---getLeavesByRange _ _ = return defMessage
---
---getInclusionProof :: UnaryHandler TrillianLog "getInclusionProof"
---getInclusionProof _ _ = return defMessage
---
---getInclusionProofByHash :: UnaryHandler TrillianLog "getInclusionProofByHash"
---getInclusionProofByHash _ _ = return defMessage
---
---getConsistencyProof :: UnaryHandler TrillianLog "getConsistencyProof"
---getConsistencyProof _ _ = return defMessage
 
---getLatestSignedLogRoot :: UnaryHandler TrillianLog "getLatestSignedLogRoot"
---getLatestSignedLogRoot _ _ = return defMessage
---
---getEntryAndProof :: UnaryHandler TrillianLog "getEntryAndProof"
---getEntryAndProof _ _ = return defMessage
+addSequencedLeaf
+  :: Api.AddSequencedLeafRequest
+  -> RPCCall Api.TrillianLog "addSequencedLeaf" (RawReply Api.AddSequencedLeafResponse)
+addSequencedLeaf = singleRequest (RPC :: RPC Api.TrillianLog "addSequencedLeaf")
+
+addSequencedLeaves
+  :: Api.AddSequencedLeavesRequest
+  -> RPCCall Api.TrillianLog "addSequencedLeaves" (RawReply Api.AddSequencedLeavesResponse)
+addSequencedLeaves = singleRequest (RPC :: RPC Api.TrillianLog "addSequencedLeaves")
+
+getLeavesByHash
+  :: Api.GetLeavesByHashRequest
+  -> RPCCall Api.TrillianLog "getLeavesByHash" (RawReply Api.GetLeavesByHashResponse)
+getLeavesByHash = singleRequest (RPC :: RPC Api.TrillianLog "getLeavesByHash")
+
+getLeavesByIndex
+  :: Api.GetLeavesByIndexRequest
+  -> RPCCall Api.TrillianLog "getLeavesByIndex" (RawReply Api.GetLeavesByIndexResponse)
+getLeavesByIndex = singleRequest (RPC :: RPC Api.TrillianLog "getLeavesByIndex")
+
+getInclusionProof
+  :: Api.GetInclusionProofRequest
+  -> RPCCall Api.TrillianLog "getInclusionProof" (RawReply Api.GetInclusionProofResponse)
+getInclusionProof = singleRequest (RPC :: RPC Api.TrillianLog "getInclusionProof")
+
+getInclusionProofByHash
+  :: Api.GetInclusionProofByHashRequest
+  -> RPCCall Api.TrillianLog "getInclusionProofByHash" (RawReply Api.GetInclusionProofByHashResponse)
+getInclusionProofByHash = singleRequest (RPC :: RPC Api.TrillianLog "getInclusionProofByHash")
+
+getConsistencyProof
+  :: Api.GetConsistencyProofRequest
+  -> RPCCall Api.TrillianLog "getConsistencyProof" (RawReply Api.GetConsistencyProofResponse)
+getConsistencyProof = singleRequest (RPC :: RPC Api.TrillianLog "getConsistencyProof")
+
+getLatestSignedLogRoot
+  :: Api.GetLatestSignedLogRootRequest
+  -> RPCCall Api.TrillianLog "getLatestSignedLogRoot" (RawReply Api.GetLatestSignedLogRootResponse)
+getLatestSignedLogRoot = singleRequest (RPC :: RPC Api.TrillianLog "getLatestSignedLogRoot")
+
+getEntryAndProof
+  :: Api.GetEntryAndProofRequest
+  -> RPCCall Api.TrillianLog "getEntryAndProof" (RawReply Api.GetEntryAndProofResponse)
+getEntryAndProof = singleRequest (RPC :: RPC Api.TrillianLog "getEntryAndProof")
