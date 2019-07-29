@@ -4,7 +4,7 @@ cabal-version: 2.0
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 62db9e690b240f105785bc0b5ec394dba46afdc2acf8128de2c12215c70ddd0e
+-- hash: 2a249fa0ff9b996ef292deaab7293a4323106b9f438ab65ccbb96be165291faf
 
 name:           hs-trillian
 version:        0.1.0.0
@@ -41,6 +41,7 @@ custom-setup
 
 library
   exposed-modules:
+      Trillian.Log.Handlers
       Proto.Trillian
       Proto.Trillian_Fields
       Proto.TrillianAdminApi
