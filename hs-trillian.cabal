@@ -4,7 +4,7 @@ cabal-version: 2.0
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 2a249fa0ff9b996ef292deaab7293a4323106b9f438ab65ccbb96be165291faf
+-- hash: 36a312f67ac13d3e1c1437b86146cf494a13bc4a3f90f5f5ec2b167595183985
 
 name:           hs-trillian
 version:        0.1.0.0
@@ -103,6 +103,7 @@ library
       Proto.Crypto.Sigpb.Sigpb_Fields
   hs-source-dirs:
       src
+  default-extensions: DataKinds
   ghc-options: -Werror -Wall
   build-depends:
       base >=4.7 && <5
