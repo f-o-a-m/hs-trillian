@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: c1934b510e6a1884965b20842028e44eb1f05183ed3cc33f097f3636ff714f68
+-- hash: a37f4563baab9cf81b8700a515d9443ec281d52e6073051f2364b5569142f831
 
 name:           hs-trillian
 version:        0.1.0.0
@@ -27,4 +27,6 @@ executable hs-trillian
       src
   build-depends:
       base >=4.7 && <5
+    , proto-lens
+    , proto-lens-runtime
   default-language: Haskell2010

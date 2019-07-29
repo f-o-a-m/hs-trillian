@@ -13,6 +13,8 @@ extra-source-files:
 
 dependencies:
   - base >= 4.7 && < 5
+  - proto-lens
+  - proto-lens-runtime
 
 executables:
   hs-trillian:
