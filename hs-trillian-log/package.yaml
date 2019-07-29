@@ -30,6 +30,16 @@ dependencies:
 default-extensions:
 - DataKinds
 
+executables:
+  eth-slurper:
+    source-dirs: examples/eth-slurper
+    main: Main.hs
+    ghc-options:
+    - -Werror
+    - -Wall
+
+  
+
 library:
   source-dirs: src
   ghc-options:
