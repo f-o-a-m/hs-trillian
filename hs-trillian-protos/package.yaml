@@ -1,15 +1,14 @@
-name:                hs-trillian
+name:                hs-trillian-protos
 version:             0.1.0.0
 #synopsis:
 #description:
 homepage:            https://github.com/githubuser/hs-trillian#readme
-license:             BSD3
+license:             Apache
 author:              Author name here
-maintainer:          example@example.com
-copyright:           2019 Author name here
+maintainer:          martin@foam.space
+copyright:           2019 Martin Allen
 category:            Web
 extra-source-files:
-- README.md
 - protos/**/*.proto
 
 custom-setup:
@@ -22,28 +21,12 @@ dependencies:
   - base >= 4.7 && < 5
   - proto-lens
   - proto-lens-runtime
-  - warp-grpc
-
-
-default-extensions:
-- DataKinds
 
 library:
   source-dirs: src
-  ghc-options:
-  - -Werror
-  - -Wall
   generated-exposed-modules:
   - Proto.Trillian
   - Proto.Trillian_Fields
-  - Proto.TrillianAdminApi
-  - Proto.TrillianAdminApi_Fields
-  - Proto.TrillianLogApi
-  - Proto.TrillianLogApi_Fields
-  - Proto.TrillianLogSequencerApi
-  - Proto.TrillianLogSequencerApi_Fields
-  - Proto.TrillianMapApi
-  - Proto.TrillianMapApi_Fields
   - Proto.Google.Api.Annotations
   - Proto.Google.Api.Annotations_Fields
   - Proto.Google.Api.Http
