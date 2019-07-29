@@ -8,7 +8,7 @@ install: ## Runs stack install to compile library and counter example app
 	stack install
 
 hlint: ## Run hlint on all haskell projects
-	stack exec hlint -- -h .hlint.yaml ./src
+	stack exec hlint -- -h .hlint.yaml hs-trillian-protos hs-trillian-log
 
 test: install ## Run the haskell test suite for all haskell projects
 	stack test
