@@ -4,20 +4,18 @@ cabal-version: 2.0
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 2a249fa0ff9b996ef292deaab7293a4323106b9f438ab65ccbb96be165291faf
+-- hash: dc34b773289bbd55ba5fc890bde8c163405428cc234db002f31033deb8e83dbe
 
-name:           hs-trillian
+name:           hs-trillian-protos
 version:        0.1.0.0
 category:       Web
 homepage:       https://github.com/githubuser/hs-trillian#readme
 author:         Author name here
-maintainer:     example@example.com
-copyright:      2019 Author name here
-license:        BSD3
-license-file:   LICENSE
+maintainer:     martin@foam.space
+copyright:      2019 Martin Allen
+license:        Apache
 build-type:     Custom
 extra-source-files:
-    README.md
     protos/crypto/keyspb/keyspb.proto
     protos/crypto/sigpb/sigpb.proto
     protos/google/api/annotations.proto
@@ -28,10 +26,6 @@ extra-source-files:
     protos/google/protobuf/timestamp.proto
     protos/google/rpc/status.proto
     protos/trillian.proto
-    protos/trillian_admin_api.proto
-    protos/trillian_log_api.proto
-    protos/trillian_log_sequencer_api.proto
-    protos/trillian_map_api.proto
 
 custom-setup
   setup-depends:
@@ -41,17 +35,8 @@ custom-setup
 
 library
   exposed-modules:
-      Trillian.Log.Handlers
       Proto.Trillian
       Proto.Trillian_Fields
-      Proto.TrillianAdminApi
-      Proto.TrillianAdminApi_Fields
-      Proto.TrillianLogApi
-      Proto.TrillianLogApi_Fields
-      Proto.TrillianLogSequencerApi
-      Proto.TrillianLogSequencerApi_Fields
-      Proto.TrillianMapApi
-      Proto.TrillianMapApi_Fields
       Proto.Google.Api.Annotations
       Proto.Google.Api.Annotations_Fields
       Proto.Google.Api.Http
@@ -71,18 +56,10 @@ library
       Proto.Crypto.Sigpb.Sigpb
       Proto.Crypto.Sigpb.Sigpb_Fields
   other-modules:
-      Paths_hs_trillian
+      Paths_hs_trillian_protos
   autogen-modules:
       Proto.Trillian
       Proto.Trillian_Fields
-      Proto.TrillianAdminApi
-      Proto.TrillianAdminApi_Fields
-      Proto.TrillianLogApi
-      Proto.TrillianLogApi_Fields
-      Proto.TrillianLogSequencerApi
-      Proto.TrillianLogSequencerApi_Fields
-      Proto.TrillianMapApi
-      Proto.TrillianMapApi_Fields
       Proto.Google.Api.Annotations
       Proto.Google.Api.Annotations_Fields
       Proto.Google.Api.Http
@@ -103,10 +80,8 @@ library
       Proto.Crypto.Sigpb.Sigpb_Fields
   hs-source-dirs:
       src
-  ghc-options: -Werror -Wall
   build-depends:
       base >=4.7 && <5
     , proto-lens
     , proto-lens-runtime
-    , warp-grpc
   default-language: Haskell2010

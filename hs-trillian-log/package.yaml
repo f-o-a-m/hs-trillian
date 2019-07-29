@@ -1,0 +1,42 @@
+name:                hs-trillian
+version:             0.1.0.0
+#synopsis:
+#description:
+homepage:            https://github.com/githubuser/hs-trillian#readme
+license:             Apache
+author:              Martin Allen
+maintainer:          martin@foam.space
+copyright:           2019 Martin Allen
+category:            Web
+extra-source-files:
+- protos/**/*.proto
+
+custom-setup:
+  dependencies:
+    - base
+    - Cabal
+    - proto-lens-setup
+    - hs-trillian-protos
+
+dependencies:
+  - base >= 4.7 && < 5
+  - proto-lens
+  - proto-lens-runtime
+  - http2-client
+  - http2-client-grpc
+  - hs-trillian-protos
+
+
+default-extensions:
+- DataKinds
+
+library:
+  source-dirs: src
+  ghc-options:
+  - -Werror
+  - -Wall
+  exposed-modules:
+  - Trillian.Log.RPCCall
+  generated-exposed-modules:
+  - Proto.TrillianLogApi
+  - Proto.TrillianLogApi_Fields
