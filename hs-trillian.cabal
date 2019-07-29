@@ -4,7 +4,7 @@ cabal-version: 2.0
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 75b748b4c9f6ed26d6f73dbf286b2922528e882d16888300c3f9f1e0d2b39005
+-- hash: 62db9e690b240f105785bc0b5ec394dba46afdc2acf8128de2c12215c70ddd0e
 
 name:           hs-trillian
 version:        0.1.0.0
@@ -20,10 +20,18 @@ extra-source-files:
     README.md
     protos/crypto/keyspb/keyspb.proto
     protos/crypto/sigpb/sigpb.proto
+    protos/google/api/annotations.proto
+    protos/google/api/http.proto
     protos/google/protobuf/any.proto
     protos/google/protobuf/duration.proto
+    protos/google/protobuf/field_mask.proto
     protos/google/protobuf/timestamp.proto
+    protos/google/rpc/status.proto
     protos/trillian.proto
+    protos/trillian_admin_api.proto
+    protos/trillian_log_api.proto
+    protos/trillian_log_sequencer_api.proto
+    protos/trillian_map_api.proto
 
 custom-setup
   setup-depends:
@@ -35,12 +43,28 @@ library
   exposed-modules:
       Proto.Trillian
       Proto.Trillian_Fields
+      Proto.TrillianAdminApi
+      Proto.TrillianAdminApi_Fields
+      Proto.TrillianLogApi
+      Proto.TrillianLogApi_Fields
+      Proto.TrillianLogSequencerApi
+      Proto.TrillianLogSequencerApi_Fields
+      Proto.TrillianMapApi
+      Proto.TrillianMapApi_Fields
+      Proto.Google.Api.Annotations
+      Proto.Google.Api.Annotations_Fields
+      Proto.Google.Api.Http
+      Proto.Google.Api.Http_Fields
       Proto.Google.Protobuf.Any
       Proto.Google.Protobuf.Any_Fields
       Proto.Google.Protobuf.Duration
       Proto.Google.Protobuf.Duration_Fields
+      Proto.Google.Protobuf.FieldMask
+      Proto.Google.Protobuf.FieldMask_Fields
       Proto.Google.Protobuf.Timestamp
       Proto.Google.Protobuf.Timestamp_Fields
+      Proto.Google.Rpc.Status
+      Proto.Google.Rpc.Status_Fields
       Proto.Crypto.Keyspb.Keyspb
       Proto.Crypto.Keyspb.Keyspb_Fields
       Proto.Crypto.Sigpb.Sigpb
@@ -50,12 +74,28 @@ library
   autogen-modules:
       Proto.Trillian
       Proto.Trillian_Fields
+      Proto.TrillianAdminApi
+      Proto.TrillianAdminApi_Fields
+      Proto.TrillianLogApi
+      Proto.TrillianLogApi_Fields
+      Proto.TrillianLogSequencerApi
+      Proto.TrillianLogSequencerApi_Fields
+      Proto.TrillianMapApi
+      Proto.TrillianMapApi_Fields
+      Proto.Google.Api.Annotations
+      Proto.Google.Api.Annotations_Fields
+      Proto.Google.Api.Http
+      Proto.Google.Api.Http_Fields
       Proto.Google.Protobuf.Any
       Proto.Google.Protobuf.Any_Fields
       Proto.Google.Protobuf.Duration
       Proto.Google.Protobuf.Duration_Fields
+      Proto.Google.Protobuf.FieldMask
+      Proto.Google.Protobuf.FieldMask_Fields
       Proto.Google.Protobuf.Timestamp
       Proto.Google.Protobuf.Timestamp_Fields
+      Proto.Google.Rpc.Status
+      Proto.Google.Rpc.Status_Fields
       Proto.Crypto.Keyspb.Keyspb
       Proto.Crypto.Keyspb.Keyspb_Fields
       Proto.Crypto.Sigpb.Sigpb
@@ -67,4 +107,5 @@ library
       base >=4.7 && <5
     , proto-lens
     , proto-lens-runtime
+    , warp-grpc
   default-language: Haskell2010

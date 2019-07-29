@@ -22,6 +22,7 @@ dependencies:
   - base >= 4.7 && < 5
   - proto-lens
   - proto-lens-runtime
+  - warp-grpc
 
 library:
   source-dirs: src
@@ -31,12 +32,28 @@ library:
   generated-exposed-modules:
   - Proto.Trillian
   - Proto.Trillian_Fields
+  - Proto.TrillianAdminApi
+  - Proto.TrillianAdminApi_Fields
+  - Proto.TrillianLogApi
+  - Proto.TrillianLogApi_Fields
+  - Proto.TrillianLogSequencerApi
+  - Proto.TrillianLogSequencerApi_Fields
+  - Proto.TrillianMapApi
+  - Proto.TrillianMapApi_Fields
+  - Proto.Google.Api.Annotations
+  - Proto.Google.Api.Annotations_Fields
+  - Proto.Google.Api.Http
+  - Proto.Google.Api.Http_Fields
   - Proto.Google.Protobuf.Any
   - Proto.Google.Protobuf.Any_Fields
   - Proto.Google.Protobuf.Duration
   - Proto.Google.Protobuf.Duration_Fields
+  - Proto.Google.Protobuf.FieldMask
+  - Proto.Google.Protobuf.FieldMask_Fields
   - Proto.Google.Protobuf.Timestamp
   - Proto.Google.Protobuf.Timestamp_Fields
+  - Proto.Google.Rpc.Status
+  - Proto.Google.Rpc.Status_Fields
   - Proto.Crypto.Keyspb.Keyspb
   - Proto.Crypto.Keyspb.Keyspb_Fields
   - Proto.Crypto.Sigpb.Sigpb
