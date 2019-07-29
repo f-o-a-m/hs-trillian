@@ -10,13 +10,34 @@ copyright:           2019 Author name here
 category:            Web
 extra-source-files:
 - README.md
+- protos/**/*.proto
+
+custom-setup:
+  dependencies:
+    - base
+    - Cabal
+    - proto-lens-setup
 
 dependencies:
   - base >= 4.7 && < 5
   - proto-lens
   - proto-lens-runtime
 
-executables:
-  hs-trillian:
-    source-dirs:      src
-    main:             Main.hs
+library:
+  source-dirs: src
+  ghc-options:
+  - -Werror
+  - -Wall
+  generated-exposed-modules:
+  - Proto.Trillian
+  - Proto.Trillian_Fields
+  - Proto.Google.Protobuf.Any
+  - Proto.Google.Protobuf.Any_Fields
+  - Proto.Google.Protobuf.Duration
+  - Proto.Google.Protobuf.Duration_Fields
+  - Proto.Google.Protobuf.Timestamp
+  - Proto.Google.Protobuf.Timestamp_Fields
+  - Proto.Crypto.Keyspb.Keyspb
+  - Proto.Crypto.Keyspb.Keyspb_Fields
+  - Proto.Crypto.Sigpb.Sigpb
+  - Proto.Crypto.Sigpb.Sigpb_Fields

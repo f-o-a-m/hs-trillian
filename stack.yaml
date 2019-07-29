@@ -9,3 +9,6 @@ extra-deps:
   - lens-labels-0.3.0.1
   - proto-lens-0.5.0.0
   - proto-lens-protoc-0.5.0.0
+
+explicit-setup-deps:
+  hs-trillian: true

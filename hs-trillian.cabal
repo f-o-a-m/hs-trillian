@@ -1,10 +1,10 @@
-cabal-version: 1.12
+cabal-version: 2.0
 
 -- This file has been generated from package.yaml by hpack version 0.31.1.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: a37f4563baab9cf81b8700a515d9443ec281d52e6073051f2364b5569142f831
+-- hash: 75b748b4c9f6ed26d6f73dbf286b2922528e882d16888300c3f9f1e0d2b39005
 
 name:           hs-trillian
 version:        0.1.0.0
@@ -15,16 +15,54 @@ maintainer:     example@example.com
 copyright:      2019 Author name here
 license:        BSD3
 license-file:   LICENSE
-build-type:     Simple
+build-type:     Custom
 extra-source-files:
     README.md
+    protos/crypto/keyspb/keyspb.proto
+    protos/crypto/sigpb/sigpb.proto
+    protos/google/protobuf/any.proto
+    protos/google/protobuf/duration.proto
+    protos/google/protobuf/timestamp.proto
+    protos/trillian.proto
 
-executable hs-trillian
-  main-is: Main.hs
+custom-setup
+  setup-depends:
+      Cabal
+    , base
+    , proto-lens-setup
+
+library
+  exposed-modules:
+      Proto.Trillian
+      Proto.Trillian_Fields
+      Proto.Google.Protobuf.Any
+      Proto.Google.Protobuf.Any_Fields
+      Proto.Google.Protobuf.Duration
+      Proto.Google.Protobuf.Duration_Fields
+      Proto.Google.Protobuf.Timestamp
+      Proto.Google.Protobuf.Timestamp_Fields
+      Proto.Crypto.Keyspb.Keyspb
+      Proto.Crypto.Keyspb.Keyspb_Fields
+      Proto.Crypto.Sigpb.Sigpb
+      Proto.Crypto.Sigpb.Sigpb_Fields
   other-modules:
       Paths_hs_trillian
+  autogen-modules:
+      Proto.Trillian
+      Proto.Trillian_Fields
+      Proto.Google.Protobuf.Any
+      Proto.Google.Protobuf.Any_Fields
+      Proto.Google.Protobuf.Duration
+      Proto.Google.Protobuf.Duration_Fields
+      Proto.Google.Protobuf.Timestamp
+      Proto.Google.Protobuf.Timestamp_Fields
+      Proto.Crypto.Keyspb.Keyspb
+      Proto.Crypto.Keyspb.Keyspb_Fields
+      Proto.Crypto.Sigpb.Sigpb
+      Proto.Crypto.Sigpb.Sigpb_Fields
   hs-source-dirs:
       src
+  ghc-options: -Werror -Wall
   build-depends:
       base >=4.7 && <5
     , proto-lens
