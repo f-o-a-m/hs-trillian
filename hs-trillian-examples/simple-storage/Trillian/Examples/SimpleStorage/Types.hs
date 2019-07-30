@@ -1,8 +1,10 @@
 module Trillian.Examples.SimpleStorage.Types where
 
-import Data.List (drop, length)
-import GHC.Generics (Generic)
-import Data.Aeson (ToJSON(..), Options, FromJSON(..), genericToJSON, genericParseJSON, defaultOptions, fieldLabelModifier)
+import           Data.Aeson   (FromJSON (..), Options, ToJSON (..),
+                               defaultOptions, fieldLabelModifier,
+                               genericParseJSON, genericToJSON)
+import           Data.List    (drop, length)
+import           GHC.Generics (Generic)
 
 
 data IncreaseCountTx = IncreaseCountTx

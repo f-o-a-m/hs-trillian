@@ -1,7 +1,9 @@
 module Trillian.Examples.Config where
 
-import Trillian.Examples.ConfigUtils (makeConfig, getEnvVar, readEnvVar, getEnvVarBool)
-import Network.GRPC.Client.Helpers (GrpcClientConfig, grpcClientConfigSimple)
+import           Network.GRPC.Client.Helpers   (GrpcClientConfig,
+                                                grpcClientConfigSimple)
+import           Trillian.Examples.ConfigUtils (getEnvVar, getEnvVarBool,
+                                                makeConfig, readEnvVar)
 
 makeGrpcClientConfig :: IO GrpcClientConfig
 makeGrpcClientConfig = do

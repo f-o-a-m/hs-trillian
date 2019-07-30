@@ -1,9 +1,9 @@
 module Trillian.Examples.ConfigUtils where
 
-import Data.Maybe (isJust)
-import Data.Char (toLower)
-import           Control.Error          (ExceptT, (!?), (??), runExceptT)
+import           Control.Error          (ExceptT, runExceptT, (!?), (??))
 import           Control.Monad.IO.Class (MonadIO (..))
+import           Data.Char              (toLower)
+import           Data.Maybe             (isJust)
 import           System.Environment     (lookupEnv)
 import qualified Text.Read              as T
 
