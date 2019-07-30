@@ -1,0 +1,49 @@
+cabal-version: 2.0
+
+-- This file has been generated from package.yaml by hpack version 0.31.1.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 7c1790cd065c89a1433f9ea864beb120960832d4f259cf1ced24e2b767ec5588
+
+name:           hs-trillian-log
+version:        0.1.0.0
+category:       Web
+homepage:       https://github.com/githubuser/hs-trillian#readme
+author:         Martin Allen
+maintainer:     martin@foam.space
+copyright:      2019 Martin Allen
+license:        Apache
+build-type:     Custom
+extra-source-files:
+    protos/trillian_log_api.proto
+
+custom-setup
+  setup-depends:
+      Cabal
+    , base
+    , hs-trillian-protos
+    , proto-lens-setup
+
+library
+  exposed-modules:
+      Trillian.Log.RPCCall
+      Proto.TrillianLogApi
+      Proto.TrillianLogApi_Fields
+  other-modules:
+      Paths_hs_trillian_log
+  autogen-modules:
+      Proto.TrillianLogApi
+      Proto.TrillianLogApi_Fields
+  hs-source-dirs:
+      src
+  default-extensions: DataKinds
+  ghc-options: -Werror -Wall
+  build-depends:
+      base >=4.7 && <5
+    , hs-trillian-protos
+    , http2-client
+    , http2-client-grpc
+    , proto-lens
+    , proto-lens-runtime
+  default-language: Haskell2010

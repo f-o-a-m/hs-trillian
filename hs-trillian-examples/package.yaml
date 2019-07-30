@@ -1,4 +1,4 @@
-name:                hs-trillian-log
+name:                hs-trillian-examples
 version:             0.1.0.0
 #synopsis:
 #description:
@@ -8,15 +8,12 @@ author:              Martin Allen
 maintainer:          martin@foam.space
 copyright:           2019 Martin Allen
 category:            Web
-extra-source-files:
-- protos/**/*.proto
 
 custom-setup:
   dependencies:
     - base
     - Cabal
     - proto-lens-setup
-    - hs-trillian-protos
 
 dependencies:
   - base >= 4.7 && < 5
@@ -24,19 +21,19 @@ dependencies:
   - proto-lens-runtime
   - http2-client
   - http2-client-grpc
+  - hs-trillian-log
   - hs-trillian-protos
 
 
 default-extensions:
 - DataKinds
 
-library:
-  source-dirs: src
-  ghc-options:
-  - -Werror
-  - -Wall
-  exposed-modules:
-  - Trillian.Log.RPCCall
-  generated-exposed-modules:
-  - Proto.TrillianLogApi
-  - Proto.TrillianLogApi_Fields
+executables:
+  eth-slurper:
+    source-dirs: eth-slurp
+    main: Main.hs
+    ghc-options:
+    - -Werror
+    - -Wall
+    dependencies:
+    - errors

@@ -1,0 +1,42 @@
+cabal-version: 1.24
+
+-- This file has been generated from package.yaml by hpack version 0.31.1.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 1b37a4e90c181948270aec22c7b7c5faaef3b9c5b35d3e5c1ff545e501465833
+
+name:           hs-trillian-examples
+version:        0.1.0.0
+category:       Web
+homepage:       https://github.com/githubuser/hs-trillian#readme
+author:         Martin Allen
+maintainer:     martin@foam.space
+copyright:      2019 Martin Allen
+license:        Apache
+build-type:     Custom
+
+custom-setup
+  setup-depends:
+      Cabal
+    , base
+    , proto-lens-setup
+
+executable eth-slurper
+  main-is: Main.hs
+  other-modules:
+      Paths_hs_trillian_examples
+  hs-source-dirs:
+      eth-slurp
+  default-extensions: DataKinds
+  ghc-options: -Werror -Wall
+  build-depends:
+      base >=4.7 && <5
+    , errors
+    , hs-trillian-log
+    , hs-trillian-protos
+    , http2-client
+    , http2-client-grpc
+    , proto-lens
+    , proto-lens-runtime
+  default-language: Haskell2010
