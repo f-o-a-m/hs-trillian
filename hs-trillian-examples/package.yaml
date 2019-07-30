@@ -31,6 +31,11 @@ library:
 default-extensions:
 - LambdaCase
 - DeriveGeneric
+- DataKinds
+- TypeOperators
+- RankNTypes
+- OverloadedStrings
+- TypeApplications
 
 executables:
   ethslurp:
@@ -40,10 +45,20 @@ executables:
     - -Werror
     - -Wall
   simple-storage:
-    source-dirs: simple-storage
+    source-dirs:
+    - simple-storage
+    - src
     main: Main.hs
     ghc-options:
     - -Werror
     - -Wall
     dependencies:
     - aeson
+    - bytestring
+    - base16-bytestring
+    - errors
+    - mtl
+    - servant
+    - servant-server
+    - servant-client
+    - text

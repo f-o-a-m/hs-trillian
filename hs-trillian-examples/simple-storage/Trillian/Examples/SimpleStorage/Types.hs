@@ -1,10 +1,21 @@
-module Trillian.Examples.SimpleStorage.Types where
+module Trillian.Examples.SimpleStorage.Types
+  ( IncreaseCountTx(..)
+  , Hash(..)
+  ) where
 
-import           Data.Aeson   (FromJSON (..), Options, ToJSON (..),
-                               defaultOptions, fieldLabelModifier,
-                               genericParseJSON, genericToJSON)
-import           Data.List    (drop, length)
-import           GHC.Generics (Generic)
+import           Data.Aeson             (FromJSON (..), Options, ToJSON (..),
+                                         defaultOptions, fieldLabelModifier,
+                                         genericParseJSON, genericToJSON,
+                                         withText)
+import           Data.Bifunctor         (first)
+import           Data.ByteString        (ByteString)
+import qualified Data.ByteString.Base16 as B16
+import           Data.Char              (toLower)
+import           Data.List              (drop, length)
+import           Data.Text              (Text, pack)
+import           Data.Text.Encoding     (decodeUtf8, encodeUtf8)
+import           GHC.Generics           (Generic)
+import           Servant                (FromHttpApiData (..))
 
 
 data IncreaseCountTx = IncreaseCountTx
@@ -13,11 +24,38 @@ data IncreaseCountTx = IncreaseCountTx
   } deriving (Eq, Show, Generic)
 
 increaseCountTxOptions :: Options
-increaseCountTxOptions = defaultOptions { fieldLabelModifier = drop $ length "increaseCountTx"
-                                        }
+increaseCountTxOptions =
+  defaultOptions { fieldLabelModifier = lowerFirst . drop (length @[] @Char "increaseCountTx")
+                 }
 
 instance ToJSON IncreaseCountTx where
   toJSON = genericToJSON increaseCountTxOptions
 
 instance FromJSON IncreaseCountTx where
   parseJSON = genericParseJSON increaseCountTxOptions
+
+newtype Hash = Hash ByteString
+
+parseHash :: Text -> Either String Hash
+parseHash t =
+  let (hex, rest) = B16.decode . encodeUtf8 $ t
+  in if rest == mempty
+       then Right (Hash hex)
+       else Left $ "Encountered non base-16 encoded bytes: " <> show rest
+
+instance FromHttpApiData Hash where
+  parseQueryParam = first pack . parseHash
+
+instance ToJSON Hash where
+  toJSON (Hash bs) = toJSON . decodeUtf8 . B16.encode $ bs
+
+instance FromJSON Hash where
+  parseJSON = withText "Couldn't parse Hash" $ \t ->
+    case parseHash t of
+      Left err   -> fail err
+      Right hash -> pure hash
+
+lowerFirst :: String -> String
+lowerFirst []       = []
+lowerFirst (a : as) = toLower a : as
+
