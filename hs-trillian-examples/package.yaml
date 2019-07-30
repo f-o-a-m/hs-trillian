@@ -30,6 +30,7 @@ library:
 
 default-extensions:
 - LambdaCase
+- DeriveGeneric
 
 executables:
   ethslurp:
@@ -44,3 +45,5 @@ executables:
     ghc-options:
     - -Werror
     - -Wall
+    dependencies:
+    - aeson

@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 69b83119b1fc78e50b807e3de5b37a15c3c14107fcdb1a8bb71edd3c6d6f8c6e
+-- hash: e18730924db5ec8384e46e2a2c9fb2871e2e0d2f3296371a4a1ef67c58200722
 
 name:           hs-trillian-examples
 version:        0.1.0.0
@@ -19,11 +19,12 @@ build-type:     Simple
 library
   exposed-modules:
       Trillian.Examples.Config
+      Trillian.Examples.ConfigUtils
   other-modules:
       Paths_hs_trillian_examples
   hs-source-dirs:
       src
-  default-extensions: LambdaCase
+  default-extensions: LambdaCase DeriveGeneric
   ghc-options: -Werror -Wall
   build-depends:
       base >=4.7 && <5
@@ -43,7 +44,7 @@ executable ethslurp
       Paths_hs_trillian_examples
   hs-source-dirs:
       ethslurp
-  default-extensions: LambdaCase
+  default-extensions: LambdaCase DeriveGeneric
   ghc-options: -Werror -Wall
   build-depends:
       base >=4.7 && <5
@@ -58,13 +59,15 @@ executable ethslurp
 executable simple-storage
   main-is: Main.hs
   other-modules:
+      Trillian.Examples.SimpleStorage.Types
       Paths_hs_trillian_examples
   hs-source-dirs:
       simple-storage
-  default-extensions: LambdaCase
+  default-extensions: LambdaCase DeriveGeneric
   ghc-options: -Werror -Wall
   build-depends:
-      base >=4.7 && <5
+      aeson
+    , base >=4.7 && <5
     , hs-trillian-log
     , hs-trillian-protos
     , http2-client
