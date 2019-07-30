@@ -3,19 +3,20 @@ module Trillian.Examples.SimpleStorage.Types
   , Hash(..)
   ) where
 
-import           Data.Aeson             (FromJSON (..), Options, ToJSON (..),
-                                         defaultOptions, fieldLabelModifier,
-                                         genericParseJSON, genericToJSON,
-                                         withText)
-import           Data.Bifunctor         (first)
-import           Data.ByteString        (ByteString)
-import qualified Data.ByteString.Base16 as B16
-import           Data.Char              (toLower)
-import           Data.List              (drop, length)
-import           Data.Text              (Text, pack)
-import           Data.Text.Encoding     (decodeUtf8, encodeUtf8)
-import           GHC.Generics           (Generic)
-import           Servant                (FromHttpApiData (..))
+import           Data.Aeson              (FromJSON (..), Options, ToJSON (..),
+                                          defaultOptions, fieldLabelModifier,
+                                          genericParseJSON, genericToJSON,
+                                          withText)
+import           Data.Bifunctor          (first)
+import           Data.ByteString         (ByteString)
+import qualified Data.ByteString.Base16  as B16
+import           Data.Char               (toLower)
+import           Data.List               (drop, length)
+import           Data.String.Conversions (cs)
+import           Data.Text               (Text)
+import           Data.Text.Encoding      (decodeUtf8, encodeUtf8)
+import           GHC.Generics            (Generic)
+import           Servant                 (FromHttpApiData (..))
 
 
 data IncreaseCountTx = IncreaseCountTx
@@ -44,7 +45,7 @@ parseHash t =
        else Left $ "Encountered non base-16 encoded bytes: " <> show rest
 
 instance FromHttpApiData Hash where
-  parseQueryParam = first pack . parseHash
+  parseQueryParam = first cs . parseHash
 
 instance ToJSON Hash where
   toJSON (Hash bs) = toJSON . decodeUtf8 . B16.encode $ bs

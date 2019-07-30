@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 50164fb2e73a44cef558fa7b5a9e80caef7944a63a4ecbef697080c7aa00f2cb
+-- hash: d33368f988e6270cbbedbd45ba8fc2a0ad33f7753b6dfe03525cd365357a485e
 
 name:           hs-trillian-examples
 version:        0.1.0.0
@@ -24,7 +24,7 @@ library
       Paths_hs_trillian_examples
   hs-source-dirs:
       src
-  default-extensions: LambdaCase DeriveGeneric DataKinds TypeOperators RankNTypes OverloadedStrings TypeApplications
+  default-extensions: LambdaCase DeriveGeneric DataKinds TypeOperators RankNTypes OverloadedStrings TypeApplications NamedFieldPuns
   ghc-options: -Werror -Wall
   build-depends:
       base >=4.7 && <5
@@ -44,7 +44,7 @@ executable ethslurp
       Paths_hs_trillian_examples
   hs-source-dirs:
       ethslurp
-  default-extensions: LambdaCase DeriveGeneric DataKinds TypeOperators RankNTypes OverloadedStrings TypeApplications
+  default-extensions: LambdaCase DeriveGeneric DataKinds TypeOperators RankNTypes OverloadedStrings TypeApplications NamedFieldPuns
   ghc-options: -Werror -Wall
   build-depends:
       base >=4.7 && <5
@@ -67,7 +67,7 @@ executable simple-storage
   hs-source-dirs:
       simple-storage
       src
-  default-extensions: LambdaCase DeriveGeneric DataKinds TypeOperators RankNTypes OverloadedStrings TypeApplications
+  default-extensions: LambdaCase DeriveGeneric DataKinds TypeOperators RankNTypes OverloadedStrings TypeApplications NamedFieldPuns
   ghc-options: -Werror -Wall
   build-depends:
       aeson
@@ -79,11 +79,13 @@ executable simple-storage
     , hs-trillian-protos
     , http2-client
     , http2-client-grpc
+    , lens
     , mtl
     , proto-lens
     , proto-lens-runtime
     , servant
     , servant-client
     , servant-server
+    , string-conversions
     , text
   default-language: Haskell2010

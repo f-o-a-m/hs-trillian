@@ -1,19 +1,23 @@
 module Trillian.Log.RPCCall where
 
-import           Network.GRPC.Client  (RPC (..), RPCCall, RawReply,
-                                       singleRequest)
-import qualified Proto.TrillianLogApi as Api
+import           Network.GRPC.Client         (RPC (..), RawReply)
+import           Network.GRPC.Client.Helpers (GrpcClient, rawUnary)
+import           Network.HTTP2.Client        (ClientIO, TooMuchConcurrency)
+import qualified Proto.TrillianLogApi        as Api
 
 initLog
-  :: Api.InitLogRequest
-  -> RPCCall Api.TrillianLog "initLog" (RawReply Api.InitLogResponse)
-initLog = singleRequest (RPC :: RPC Api.TrillianLog "initLog")
+  :: GrpcClient
+  -> Api.InitLogRequest
+  -> ClientIO (Either TooMuchConcurrency (RawReply Api.InitLogResponse))
+initLog = rawUnary (RPC :: RPC Api.TrillianLog "initLog")
 
 queueLeaf
-  :: Api.QueueLeafRequest
-  -> RPCCall Api.TrillianLog "queueLeaf" (RawReply Api.QueueLeafResponse)
-queueLeaf = singleRequest (RPC :: RPC Api.TrillianLog "queueLeaf")
+  :: GrpcClient
+  -> Api.QueueLeafRequest
+  -> ClientIO (Either TooMuchConcurrency (RawReply Api.QueueLeafResponse))
+queueLeaf = rawUnary (RPC :: RPC Api.TrillianLog "queueLeaf")
 
+{-
 queueLeaves
   :: Api.QueueLeavesRequest
   -> RPCCall Api.TrillianLog "queueLeaves" (RawReply Api.QueueLeavesResponse)
@@ -34,11 +38,15 @@ addSequencedLeaves
   -> RPCCall Api.TrillianLog "addSequencedLeaves" (RawReply Api.AddSequencedLeavesResponse)
 addSequencedLeaves = singleRequest (RPC :: RPC Api.TrillianLog "addSequencedLeaves")
 
-getLeavesByHash
-  :: Api.GetLeavesByHashRequest
-  -> RPCCall Api.TrillianLog "getLeavesByHash" (RawReply Api.GetLeavesByHashResponse)
-getLeavesByHash = singleRequest (RPC :: RPC Api.TrillianLog "getLeavesByHash")
+-}
 
+getLeavesByHash
+  :: GrpcClient
+  -> Api.GetLeavesByHashRequest
+  -> ClientIO (Either TooMuchConcurrency (RawReply Api.GetLeavesByHashResponse))
+getLeavesByHash = rawUnary (RPC :: RPC Api.TrillianLog "getLeavesByHash")
+
+{-
 getLeavesByIndex
   :: Api.GetLeavesByIndexRequest
   -> RPCCall Api.TrillianLog "getLeavesByIndex" (RawReply Api.GetLeavesByIndexResponse)
@@ -68,3 +76,4 @@ getEntryAndProof
   :: Api.GetEntryAndProofRequest
   -> RPCCall Api.TrillianLog "getEntryAndProof" (RawReply Api.GetEntryAndProofResponse)
 getEntryAndProof = singleRequest (RPC :: RPC Api.TrillianLog "getEntryAndProof")
+-}
