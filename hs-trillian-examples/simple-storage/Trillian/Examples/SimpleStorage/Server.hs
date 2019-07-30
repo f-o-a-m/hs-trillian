@@ -65,6 +65,14 @@ makeAppContext = do
                     , logId = lid
                     }
 
+server :: IO (Server API)
+server = do
+  ctx <- makeAppContext
+  pure ( postIncreaseCountTx ctx :<|>
+         getIncreaseCountTx ctx
+       )
+
+
 -- Handlers
 
 postIncreaseCountTx :: AppContext -> IncreaseCountTx -> Handler Hash
