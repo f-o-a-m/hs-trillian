@@ -5,7 +5,7 @@ services:
   mysql:
     build:
       context: ../..
-      dockerfile: ./docker/docker/db_server/Dockerfile
+      dockerfile: ./docker/db_server/Dockerfile
     environment:
       - MYSQL_ROOT_PASSWORD=zaphod
       - MYSQL_DATABASE=test

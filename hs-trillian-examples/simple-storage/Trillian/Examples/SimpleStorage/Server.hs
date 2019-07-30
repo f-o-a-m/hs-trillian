@@ -19,7 +19,7 @@ import           Network.Wai.Handler.Warp              (run)
 import           Network.Wai.Middleware.RequestLogger  (logStdoutDev)
 import qualified Proto.TrillianLogApi_Fields           as TApi
 import           Servant
-import           Trillian.Examples.Config              (makeGrpcClientConfig)
+import           Trillian.Examples.Config              (makeGrpcClientConfig, createTrillianLog)
 import           Trillian.Examples.ConfigUtils         (makeConfig, readEnvVar)
 import           Trillian.Examples.SimpleStorage.Types
 import qualified Trillian.Log.RPCCall                  as LogRPC
@@ -65,6 +65,7 @@ makeAppContext = do
       Left e     -> error $ "Error initiating GrpcClient " <> show e
       Right grpc -> return grpc
   lid <- makeConfig $ readEnvVar "TRILLIAN_LOG_ID"
+  createTrillianLog grpc lid
   pure $ AppContext { grpcClient = grpc
                     , logId = lid
                     }

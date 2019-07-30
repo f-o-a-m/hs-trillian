@@ -1,3 +1,11 @@
+export
+
+SIMPLE_STORAGE_PORT ?= 3030
+TRILLIAN_HOST_NAME ?= 0.0.0.0
+TRILLIAN_PORT ?= 8090
+TRILLIAN_USE_TLS ?= false
+TRILLIAN_LOG_ID ?= 1
+
 help: ## Ask for help!
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
@@ -12,6 +20,9 @@ hlint: ## Run hlint on all haskell projects
 
 test: install ## Run the haskell test suite for all haskell projects
 	stack test
+
+run-simple-storage: install ## run the simple storage server
+	stack exec -- simple-storage
 
 stylish: ## Run stylish-haskell over all haskell projects
 	find ./hs-trillian-examples -name "*.hs" | xargs stylish-haskell -c ./.stylish_haskell.yaml -i

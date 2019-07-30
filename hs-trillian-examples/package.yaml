@@ -11,12 +11,15 @@ category:            Web
 
 dependencies:
   - base >= 4.7 && < 5
+  - base16-bytestring
+  - lens
   - proto-lens
   - proto-lens-runtime
   - http2-client
   - http2-client-grpc
   - hs-trillian-log
   - hs-trillian-protos
+  - string-conversions
 
 library:
   source-dirs: src
@@ -56,14 +59,11 @@ executables:
     dependencies:
     - aeson
     - bytestring
-    - base16-bytestring
     - errors
-    - lens
     - mtl
     - servant
     - servant-server
     - servant-client
-    - string-conversions
     - text
     - wai
     - wai-extra

@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 3935b82c9f404352ec2bcff132a434e42e162f5dc06421120c4bbed8356bfbe6
+-- hash: d6adfc31f82d54b7f1c72d1acf1e9b7d18486eab026008733dce69eefedc7570
 
 name:           hs-trillian-examples
 version:        0.1.0.0
@@ -28,13 +28,16 @@ library
   ghc-options: -Werror -Wall
   build-depends:
       base >=4.7 && <5
+    , base16-bytestring
     , errors
     , hs-trillian-log
     , hs-trillian-protos
     , http2-client
     , http2-client-grpc
+    , lens
     , proto-lens
     , proto-lens-runtime
+    , string-conversions
     , transformers
   default-language: Haskell2010
 
@@ -48,12 +51,15 @@ executable ethslurp
   ghc-options: -Werror -Wall
   build-depends:
       base >=4.7 && <5
+    , base16-bytestring
     , hs-trillian-log
     , hs-trillian-protos
     , http2-client
     , http2-client-grpc
+    , lens
     , proto-lens
     , proto-lens-runtime
+    , string-conversions
   default-language: Haskell2010
 
 executable simple-storage
