@@ -14,12 +14,18 @@ import           Network.GRPC.Client.Helpers           (GrpcClient,
                                                         setupGrpcClient)
 import           Network.HTTP2.Client                  (ClientIO,
                                                         TooMuchConcurrency)
+import           Network.Wai                           (Application)
+import           Network.Wai.Handler.Warp              (run)
+import           Network.Wai.Middleware.RequestLogger  (logStdoutDev)
 import qualified Proto.TrillianLogApi_Fields           as TApi
 import           Servant
 import           Trillian.Examples.Config              (makeGrpcClientConfig)
 import           Trillian.Examples.ConfigUtils         (makeConfig, readEnvVar)
 import           Trillian.Examples.SimpleStorage.Types
 import qualified Trillian.Log.RPCCall                  as LogRPC
+
+
+
 
 
 type PostIncreaseCountTx =
@@ -65,12 +71,21 @@ makeAppContext = do
                     , logId = lid
                     }
 
-server :: IO (Server API)
-server = do
+server :: AppContext -> Server API
+server ctx =
+  postIncreaseCountTx ctx :<|>
+  getIncreaseCountTx ctx
+
+makeApplication :: IO Application
+makeApplication = do
   ctx <- makeAppContext
-  pure ( postIncreaseCountTx ctx :<|>
-         getIncreaseCountTx ctx
-       )
+  return $ serve api $ server ctx
+
+runApplication :: IO ()
+runApplication = do
+  app <- makeApplication
+  port <- makeConfig $ readEnvVar "SIMPLE_STORAGE_PORT"
+  run  port $ logStdoutDev app
 
 
 -- Handlers

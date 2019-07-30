@@ -65,3 +65,6 @@ executables:
     - servant-client
     - string-conversions
     - text
+    - wai
+    - wai-extra
+    - warp
