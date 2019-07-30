@@ -9,12 +9,6 @@ maintainer:          martin@foam.space
 copyright:           2019 Martin Allen
 category:            Web
 
-custom-setup:
-  dependencies:
-    - base
-    - Cabal
-    - proto-lens-setup
-
 dependencies:
   - base >= 4.7 && < 5
   - proto-lens
@@ -24,16 +18,29 @@ dependencies:
   - hs-trillian-log
   - hs-trillian-protos
 
+library:
+  source-dirs: src
+  ghc-options:
+  - -Werror
+  - -Wall
+  dependencies:
+  - errors
+  - transformers
+
 
 default-extensions:
-- DataKinds
+- LambdaCase
 
 executables:
-  eth-slurper:
-    source-dirs: eth-slurp
+  ethslurp:
+    source-dirs: ethslurp
     main: Main.hs
     ghc-options:
     - -Werror
     - -Wall
-    dependencies:
-    - errors
+  simple-storage:
+    source-dirs: simple-storage
+    main: Main.hs
+    ghc-options:
+    - -Werror
+    - -Wall

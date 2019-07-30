@@ -1,10 +1,10 @@
-cabal-version: 1.24
+cabal-version: 1.12
 
 -- This file has been generated from package.yaml by hpack version 0.31.1.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 1b37a4e90c181948270aec22c7b7c5faaef3b9c5b35d3e5c1ff545e501465833
+-- hash: 69b83119b1fc78e50b807e3de5b37a15c3c14107fcdb1a8bb71edd3c6d6f8c6e
 
 name:           hs-trillian-examples
 version:        0.1.0.0
@@ -14,25 +14,57 @@ author:         Martin Allen
 maintainer:     martin@foam.space
 copyright:      2019 Martin Allen
 license:        Apache
-build-type:     Custom
+build-type:     Simple
 
-custom-setup
-  setup-depends:
-      Cabal
-    , base
-    , proto-lens-setup
-
-executable eth-slurper
-  main-is: Main.hs
+library
+  exposed-modules:
+      Trillian.Examples.Config
   other-modules:
       Paths_hs_trillian_examples
   hs-source-dirs:
-      eth-slurp
-  default-extensions: DataKinds
+      src
+  default-extensions: LambdaCase
   ghc-options: -Werror -Wall
   build-depends:
       base >=4.7 && <5
     , errors
+    , hs-trillian-log
+    , hs-trillian-protos
+    , http2-client
+    , http2-client-grpc
+    , proto-lens
+    , proto-lens-runtime
+    , transformers
+  default-language: Haskell2010
+
+executable ethslurp
+  main-is: Main.hs
+  other-modules:
+      Paths_hs_trillian_examples
+  hs-source-dirs:
+      ethslurp
+  default-extensions: LambdaCase
+  ghc-options: -Werror -Wall
+  build-depends:
+      base >=4.7 && <5
+    , hs-trillian-log
+    , hs-trillian-protos
+    , http2-client
+    , http2-client-grpc
+    , proto-lens
+    , proto-lens-runtime
+  default-language: Haskell2010
+
+executable simple-storage
+  main-is: Main.hs
+  other-modules:
+      Paths_hs_trillian_examples
+  hs-source-dirs:
+      simple-storage
+  default-extensions: LambdaCase
+  ghc-options: -Werror -Wall
+  build-depends:
+      base >=4.7 && <5
     , hs-trillian-log
     , hs-trillian-protos
     , http2-client

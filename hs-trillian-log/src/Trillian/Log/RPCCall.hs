@@ -1,6 +1,7 @@
 module Trillian.Log.RPCCall where
 
-import           Network.GRPC.Client (RPCCall, RawReply, RPC(..), singleRequest)
+import           Network.GRPC.Client  (RPC (..), RPCCall, RawReply,
+                                       singleRequest)
 import qualified Proto.TrillianLogApi as Api
 
 initLog
