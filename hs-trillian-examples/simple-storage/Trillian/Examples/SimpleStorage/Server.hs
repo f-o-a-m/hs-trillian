@@ -26,8 +26,6 @@ import qualified Trillian.Log.RPCCall                  as LogRPC
 
 
 
-
-
 type PostIncreaseCountTx =
      "tx"
   :> "increase_count"
@@ -64,7 +62,7 @@ makeAppContext = do
   grpc <- do
     ec <- runExceptT $ setupGrpcClient grpcCfg
     case ec of
-      Left e     -> error $ "Error intiiating GrpcClient " <> show e
+      Left e     -> error $ "Error initiating GrpcClient " <> show e
       Right grpc -> return grpc
   lid <- makeConfig $ readEnvVar "TRILLIAN_LOG_ID"
   pure $ AppContext { grpcClient = grpc
