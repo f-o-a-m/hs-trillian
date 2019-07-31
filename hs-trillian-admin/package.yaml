@@ -23,9 +23,12 @@ dependencies:
   - hs-trillian-protos
   - proto-lens-setup
   - proto-lens-runtime
+  - http2-client
+  - http2-client-grpc
 
 
-# default-extensions:
+default-extensions:
+ - DataKinds
 
 library:
   source-dirs: src

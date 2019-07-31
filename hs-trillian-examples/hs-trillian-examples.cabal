@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: d6adfc31f82d54b7f1c72d1acf1e9b7d18486eab026008733dce69eefedc7570
+-- hash: 7f65e86708fcf14e0d526d92fee384fd3288a7630fb8a13d1644a29975af79b9
 
 name:           hs-trillian-examples
 version:        0.1.0.0
@@ -30,6 +30,7 @@ library
       base >=4.7 && <5
     , base16-bytestring
     , errors
+    , hs-trillian-admin
     , hs-trillian-log
     , hs-trillian-protos
     , http2-client
@@ -52,6 +53,7 @@ executable ethslurp
   build-depends:
       base >=4.7 && <5
     , base16-bytestring
+    , hs-trillian-admin
     , hs-trillian-log
     , hs-trillian-protos
     , http2-client
@@ -81,6 +83,7 @@ executable simple-storage
     , base16-bytestring
     , bytestring
     , errors
+    , hs-trillian-admin
     , hs-trillian-log
     , hs-trillian-protos
     , http2-client

@@ -17,6 +17,7 @@ dependencies:
   - proto-lens-runtime
   - http2-client
   - http2-client-grpc
+  - hs-trillian-admin
   - hs-trillian-log
   - hs-trillian-protos
   - string-conversions

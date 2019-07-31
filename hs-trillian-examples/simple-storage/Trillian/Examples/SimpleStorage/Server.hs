@@ -65,8 +65,7 @@ makeAppContext = do
     case ec of
       Left e     -> error $ "Error initiating GrpcClient " <> show e
       Right grpc -> return grpc
-  lid <- makeConfig $ readEnvVar "TRILLIAN_LOG_ID"
-  createTrillianLog grpc lid
+  lid <- createTrillianLog grpc
   pure $ AppContext { grpcClient = grpc
                     , logId = lid
                     }

@@ -10,10 +10,10 @@ import           Network.GRPC.Client           (RawReply, uncompressed)
 import           Network.GRPC.Client.Helpers   (GrpcClient, GrpcClientConfig,
                                                 grpcClientConfigSimple,
                                                 _grpcClientConfigCompression)
-import           Network.HTTP2.Client          (ClientError, TooMuchConcurrency)
+import           Network.HTTP2.Client          (TooMuchConcurrency)
 import qualified Proto.Trillian_Fields         as T
-import qualified Proto.TrillianLogApi          as TApi
 import qualified Proto.TrillianLogApi_Fields   as TApi
+import qualified Trillian.Admin.RPCCall        as AdminRPC
 import           Trillian.Examples.ConfigUtils (getEnvVar, getEnvVarBool,
                                                 makeConfig, readEnvVar)
 import qualified Trillian.Log.RPCCall          as LogRPC
@@ -30,31 +30,38 @@ makeGrpcClientConfig = do
   let grpcCfg = grpcClientConfigSimple hostName portNumber useTLS
   return grpcCfg {_grpcClientConfigCompression = uncompressed}
 
-createTrillianLog :: GrpcClient -> Int64 -> IO ()
-createTrillianLog grpc logId = do
-  let reqMsg = defMessage &  TApi.logId .~ logId
-  eresp <- runExceptT $ LogRPC.initLog grpc reqMsg
-  case formatResponse eresp of
-    Left e -> error e
-    Right resp ->
-      let prefix = "Log created with logId " <> show logId <> " : "
+createTrillianLog :: GrpcClient -> IO Int64
+createTrillianLog grpc = do
+  erespLogId <- runExceptT $ do
+    etree <- formatResponse "CreateTreeRequest" <$> AdminRPC.createTree grpc defMessage
+    tree <- either error pure etree
+    let logId = tree ^. T.treeId
+        logReqMsg = defMessage &  TApi.logId .~ logId
+    elogResp <- formatResponse "InitLogRequest" <$> LogRPC.initLog grpc logReqMsg
+    logResp <- either error pure elogResp
+    pure (logResp, logId)
+  case erespLogId of
+    Left e -> error $ show e
+    Right (resp, logId) ->
+      let prefix = "Log created with logId " <> show logId
       in case resp ^. TApi.maybe'created of
-           Nothing -> putStrLn $ prefix <> "<Empty InitLogResponse>"
+           Nothing -> do
+             putStrLn $ prefix <> "<Empty InitLogResponse>"
+             pure logId
            Just signedLogRoot ->
              let toHex = cs . BS16.encode
-                 msg = "logRoot=" <> toHex (signedLogRoot ^. T.logRoot)
-             in putStrLn $ prefix <> msg
+                 msg = "logRoot=" <> toHex (signedLogRoot ^. T.logRoot) <> ", logId=" <> show logId
+             in do
+               putStrLn $ prefix <> msg
+               pure logId
   where
-    errorPrefix = "Error in InitLog request : "
-    formatResponse :: Either ClientError (
-                        Either TooMuchConcurrency (
-                          RawReply TApi.InitLogResponse
-                        )
+    formatResponse :: String
+                   -> Either TooMuchConcurrency (
+                        RawReply a
                       )
-                   -> Either String TApi.InitLogResponse
-    formatResponse (Left e) = Left $ errorPrefix <> "ClientError " <> show e
-    formatResponse (Right (Left _)) = Left $ errorPrefix <> "TooMuchConcurrency"
-    formatResponse (Right (Right rr)) = case rr of
+                   -> Either String a
+    formatResponse errorPrefix (Left _) = Left $ errorPrefix <> "TooMuchConcurrency"
+    formatResponse errorPrefix (Right rr) = case rr of
       Left errCode -> Left $ errorPrefix <> "Error Code " <> show errCode
       Right (_,_,ea) -> case ea of
         Left e  -> Left $ errorPrefix <> e
