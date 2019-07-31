@@ -1,27 +1,28 @@
 module Trillian.Examples.Config where
 
-import           Control.Error                 (runExceptT)
-import           Control.Lens                  ((&), (.~), (^.))
-import qualified Data.ByteString.Base16        as BS16
-import           Data.Int                      (Int64)
-import           Data.ProtoLens.Message        (Message (defMessage))
-import           Data.String.Conversions       (cs)
-import           Network.GRPC.Client           (RawReply, uncompressed)
-import           Network.GRPC.Client.Helpers   (GrpcClient, GrpcClientConfig,
-                                                grpcClientConfigSimple,
-                                                _grpcClientConfigCompression)
-import           Network.HTTP2.Client          (TooMuchConcurrency)
-import qualified Proto.Trillian_Fields         as T
-import qualified Proto.Trillian         as T
-import qualified Proto.TrillianLogApi_Fields   as LogApi
-import qualified Proto.TrillianAdminApi_Fields   as AdminApi
-import qualified Trillian.Admin.RPCCall        as AdminRPC
-import           Trillian.Examples.ConfigUtils (getEnvVar, getEnvVarBool,
-                                                makeConfig, readEnvVar)
-import qualified Trillian.Log.RPCCall          as LogRPC
-import Proto.Crypto.Sigpb.Sigpb as Sigpb
-import Proto.Crypto.Keyspb.Keyspb as Keyspb
-import Proto.Crypto.Keyspb.Keyspb_Fields as Keyspb
+import           Control.Error                     (runExceptT)
+import           Control.Lens                      ((&), (.~), (^.))
+import qualified Data.ByteString.Base16            as BS16
+import           Data.Int                          (Int64)
+import           Data.ProtoLens.Message            (Message (defMessage))
+import           Data.String.Conversions           (cs)
+import           Network.GRPC.Client               (RawReply, uncompressed)
+import           Network.GRPC.Client.Helpers       (GrpcClient,
+                                                    GrpcClientConfig,
+                                                    grpcClientConfigSimple,
+                                                    _grpcClientConfigCompression)
+import           Network.HTTP2.Client              (TooMuchConcurrency)
+import           Proto.Crypto.Keyspb.Keyspb        as Keyspb
+import           Proto.Crypto.Keyspb.Keyspb_Fields as Keyspb
+import           Proto.Crypto.Sigpb.Sigpb          as Sigpb
+import qualified Proto.Trillian                    as T
+import qualified Proto.Trillian_Fields             as T
+import qualified Proto.TrillianAdminApi_Fields     as AdminApi
+import qualified Proto.TrillianLogApi_Fields       as LogApi
+import qualified Trillian.Admin.RPCCall            as AdminRPC
+import           Trillian.Examples.ConfigUtils     (getEnvVar, getEnvVarBool,
+                                                    makeConfig, readEnvVar)
+import qualified Trillian.Log.RPCCall              as LogRPC
 
 
 makeGrpcClientConfig :: IO GrpcClientConfig
