@@ -76,40 +76,6 @@ createTrillianLog grpc = do
         Left e  -> Left $ errorPrefix <> e
         Right a -> Right a
 
-
-{- | Fields :
-
-    * 'Proto.Trillian_Fields.treeId' @:: Lens' Tree Data.Int.Int64@
-    * 'Proto.Trillian_Fields.treeState' @:: Lens' Tree TreeState@
-    * 'Proto.Trillian_Fields.treeType' @:: Lens' Tree TreeType@
-    * 'Proto.Trillian_Fields.hashStrategy' @:: Lens' Tree HashStrategy@
-    * 'Proto.Trillian_Fields.hashAlgorithm' @:: Lens' Tree Proto.Crypto.Sigpb.Sigpb.DigitallySigned'HashAlgorithm@
-    * 'Proto.Trillian_Fields.signatureAlgorithm' @:: Lens' Tree
-  Proto.Crypto.Sigpb.Sigpb.DigitallySigned'SignatureAlgorithm@
-    * 'Proto.Trillian_Fields.displayName' @:: Lens' Tree Data.Text.Text@
-   * 'Proto.Trillian_Fields.description' @:: Lens' Tree Data.Text.Text@
-    * 'Proto.Trillian_Fields.privateKey' @:: Lens' Tree Proto.Google.Protobuf.Any.Any@
-    * 'Proto.Trillian_Fields.maybe'privateKey' @:: Lens' Tree (Prelude.Maybe Proto.Google.Protobuf.Any.Any)@
-    * 'Proto.Trillian_Fields.storageSettings' @:: Lens' Tree Proto.Google.Protobuf.Any.Any@
-    * 'Proto.Trillian_Fields.maybe'storageSettings' @:: Lens' Tree (Prelude.Maybe Proto.Google.Protobuf.Any.Any)@
-    * 'Proto.Trillian_Fields.publicKey' @:: Lens' Tree Proto.Crypto.Keyspb.Keyspb.PublicKey@
-    * 'Proto.Trillian_Fields.maybe'publicKey' @:: Lens' Tree (Prelude.Maybe Proto.Crypto.Keyspb.Keyspb.PublicKey)@
-    * 'Proto.Trillian_Fields.maxRootDuration' @:: Lens' Tree Proto.Google.Protobuf.Duration.Duration@
-    * 'Proto.Trillian_Fields.maybe'maxRootDuration' @:: Lens' Tree (Prelude.Maybe Proto.Google.Protobuf.Duration.Duration)@
-    * 'Proto.Trillian_Fields.createTime' @:: Lens' Tree Proto.Google.Protobuf.Timestamp.Timestamp@
-    * 'Proto.Trillian_Fields.maybe'createTime' @:: Lens' Tree
-  (Prelude.Maybe Proto.Google.Protobuf.Timestamp.Timestamp)@
-    * 'Proto.Trillian_Fields.updateTime' @:: Lens' Tree Proto.Google.Protobuf.Timestamp.Timestamp@
-    * 'Proto.Trillian_Fields.maybe'updateTime' @:: Lens' Tree
-  (Prelude.Maybe Proto.Google.Protobuf.Timestamp.Timestamp)@
-    * 'Proto.Trillian_Fields.deleted' @:: Lens' Tree Prelude.Bool@
-    * 'Proto.Trillian_Fields.deleteTime' @:: Lens' Tree Proto.Google.Protobuf.Timestamp.Timestamp@
-    * 'Proto.Trillian_Fields.maybe'deleteTime' @:: Lens' Tree
-  (Prelude.Maybe Proto.Google.Protobuf.Timestamp.Timestamp)@
-
-
--}
-
 defaultLogTree :: T.Tree
 defaultLogTree = defMessage
   & T.treeState .~ T.ACTIVE
