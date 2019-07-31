@@ -102,7 +102,7 @@ postIncreaseCountTx AppContext{grpcClient, logId} tx = do
   logResp <- transformClientIO $
     LogRPC.queueLeaf grpcClient logRequest
   pure . Hash $
-    logResp ^. TApi.queuedLeaf . TApi.leaf . TApi.leafValue
+    logResp ^. TApi.queuedLeaf . TApi.leaf . TApi.merkleLeafHash
 
 getIncreaseCountTx :: AppContext -> Hash -> Handler IncreaseCountTx
 getIncreaseCountTx AppContext{grpcClient, logId} (Hash txBytes) = do

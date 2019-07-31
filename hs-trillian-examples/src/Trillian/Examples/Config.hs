@@ -12,11 +12,16 @@ import           Network.GRPC.Client.Helpers   (GrpcClient, GrpcClientConfig,
                                                 _grpcClientConfigCompression)
 import           Network.HTTP2.Client          (TooMuchConcurrency)
 import qualified Proto.Trillian_Fields         as T
-import qualified Proto.TrillianLogApi_Fields   as TApi
+import qualified Proto.Trillian         as T
+import qualified Proto.TrillianLogApi_Fields   as LogApi
+import qualified Proto.TrillianAdminApi_Fields   as AdminApi
 import qualified Trillian.Admin.RPCCall        as AdminRPC
 import           Trillian.Examples.ConfigUtils (getEnvVar, getEnvVarBool,
                                                 makeConfig, readEnvVar)
 import qualified Trillian.Log.RPCCall          as LogRPC
+import Proto.Crypto.Sigpb.Sigpb as Sigpb
+import Proto.Crypto.Keyspb.Keyspb as Keyspb
+import Proto.Crypto.Keyspb.Keyspb_Fields as Keyspb
 
 
 makeGrpcClientConfig :: IO GrpcClientConfig
@@ -33,18 +38,21 @@ makeGrpcClientConfig = do
 createTrillianLog :: GrpcClient -> IO Int64
 createTrillianLog grpc = do
   erespLogId <- runExceptT $ do
-    etree <- formatResponse "CreateTreeRequest" <$> AdminRPC.createTree grpc defMessage
+    let treeReq =
+          defMessage & AdminApi.tree .~ defaultLogTree
+                     & AdminApi.keySpec .~ defaultKeySpec
+    etree <- formatResponse "CreateTreeRequest " <$> AdminRPC.createTree grpc treeReq
     tree <- either error pure etree
     let logId = tree ^. T.treeId
-        logReqMsg = defMessage &  TApi.logId .~ logId
-    elogResp <- formatResponse "InitLogRequest" <$> LogRPC.initLog grpc logReqMsg
+        logReqMsg = defMessage &  LogApi.logId .~ logId
+    elogResp <- formatResponse "InitLogRequest " <$> LogRPC.initLog grpc logReqMsg
     logResp <- either error pure elogResp
     pure (logResp, logId)
   case erespLogId of
     Left e -> error $ show e
     Right (resp, logId) ->
       let prefix = "Log created with logId " <> show logId
-      in case resp ^. TApi.maybe'created of
+      in case resp ^. LogApi.maybe'created of
            Nothing -> do
              putStrLn $ prefix <> "<Empty InitLogResponse>"
              pure logId
@@ -66,3 +74,53 @@ createTrillianLog grpc = do
       Right (_,_,ea) -> case ea of
         Left e  -> Left $ errorPrefix <> e
         Right a -> Right a
+
+
+{- | Fields :
+
+    * 'Proto.Trillian_Fields.treeId' @:: Lens' Tree Data.Int.Int64@
+    * 'Proto.Trillian_Fields.treeState' @:: Lens' Tree TreeState@
+    * 'Proto.Trillian_Fields.treeType' @:: Lens' Tree TreeType@
+    * 'Proto.Trillian_Fields.hashStrategy' @:: Lens' Tree HashStrategy@
+    * 'Proto.Trillian_Fields.hashAlgorithm' @:: Lens' Tree Proto.Crypto.Sigpb.Sigpb.DigitallySigned'HashAlgorithm@
+    * 'Proto.Trillian_Fields.signatureAlgorithm' @:: Lens' Tree
+  Proto.Crypto.Sigpb.Sigpb.DigitallySigned'SignatureAlgorithm@
+    * 'Proto.Trillian_Fields.displayName' @:: Lens' Tree Data.Text.Text@
+   * 'Proto.Trillian_Fields.description' @:: Lens' Tree Data.Text.Text@
+    * 'Proto.Trillian_Fields.privateKey' @:: Lens' Tree Proto.Google.Protobuf.Any.Any@
+    * 'Proto.Trillian_Fields.maybe'privateKey' @:: Lens' Tree (Prelude.Maybe Proto.Google.Protobuf.Any.Any)@
+    * 'Proto.Trillian_Fields.storageSettings' @:: Lens' Tree Proto.Google.Protobuf.Any.Any@
+    * 'Proto.Trillian_Fields.maybe'storageSettings' @:: Lens' Tree (Prelude.Maybe Proto.Google.Protobuf.Any.Any)@
+    * 'Proto.Trillian_Fields.publicKey' @:: Lens' Tree Proto.Crypto.Keyspb.Keyspb.PublicKey@
+    * 'Proto.Trillian_Fields.maybe'publicKey' @:: Lens' Tree (Prelude.Maybe Proto.Crypto.Keyspb.Keyspb.PublicKey)@
+    * 'Proto.Trillian_Fields.maxRootDuration' @:: Lens' Tree Proto.Google.Protobuf.Duration.Duration@
+    * 'Proto.Trillian_Fields.maybe'maxRootDuration' @:: Lens' Tree (Prelude.Maybe Proto.Google.Protobuf.Duration.Duration)@
+    * 'Proto.Trillian_Fields.createTime' @:: Lens' Tree Proto.Google.Protobuf.Timestamp.Timestamp@
+    * 'Proto.Trillian_Fields.maybe'createTime' @:: Lens' Tree
+  (Prelude.Maybe Proto.Google.Protobuf.Timestamp.Timestamp)@
+    * 'Proto.Trillian_Fields.updateTime' @:: Lens' Tree Proto.Google.Protobuf.Timestamp.Timestamp@
+    * 'Proto.Trillian_Fields.maybe'updateTime' @:: Lens' Tree
+  (Prelude.Maybe Proto.Google.Protobuf.Timestamp.Timestamp)@
+    * 'Proto.Trillian_Fields.deleted' @:: Lens' Tree Prelude.Bool@
+    * 'Proto.Trillian_Fields.deleteTime' @:: Lens' Tree Proto.Google.Protobuf.Timestamp.Timestamp@
+    * 'Proto.Trillian_Fields.maybe'deleteTime' @:: Lens' Tree
+  (Prelude.Maybe Proto.Google.Protobuf.Timestamp.Timestamp)@
+
+
+-}
+
+defaultLogTree :: T.Tree
+defaultLogTree = defMessage
+  & T.treeState .~ T.ACTIVE
+  & T.treeType .~ T.LOG
+  & T.hashStrategy .~ T.RFC6962_SHA256
+  & T.hashAlgorithm .~ Sigpb.DigitallySigned'SHA256
+  & T.signatureAlgorithm .~ Sigpb.DigitallySigned'ECDSA
+  & T.maxRootDuration .~ defMessage
+
+defaultKeySpec :: Keyspb.Specification
+defaultKeySpec =
+  defMessage
+    & Keyspb.ecdsaParams .~ ( defMessage
+                                & Keyspb.curve .~ Keyspb.Specification'ECDSA'P256
+                            )
