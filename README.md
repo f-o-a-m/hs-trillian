@@ -1,5 +1,7 @@
 # hs-trillian
 
+[![Build status](https://travis-ci.com/f-o-a-m/hs-trillian.svg?branch=master)](https://travis-ci.org/f-o-a-m/hs-trillian?branch=master)
+
 Haskell bindings to google's [trillian](https://github.com/google/trillian), a verifiable data store
 
 ## Generated modules
