@@ -1,0 +1,71 @@
+name:                hs-trillian-examples
+version:             0.1.0.0
+#synopsis:
+#description:
+homepage:            https://github.com/githubuser/hs-trillian#readme
+license:             Apache
+author:              Martin Allen
+maintainer:          martin@foam.space
+copyright:           2019 Martin Allen
+category:            Web
+
+dependencies:
+  - base >= 4.7 && < 5
+  - base16-bytestring
+  - lens
+  - proto-lens
+  - proto-lens-runtime
+  - http2-client
+  - http2-client-grpc
+  - hs-trillian-admin
+  - hs-trillian-log
+  - hs-trillian-protos
+  - string-conversions
+
+library:
+  source-dirs: src
+  ghc-options:
+  - -Werror
+  - -Wall
+  dependencies:
+  - errors
+  - transformers
+
+
+default-extensions:
+- LambdaCase
+- DeriveGeneric
+- DataKinds
+- TypeOperators
+- RankNTypes
+- OverloadedStrings
+- TypeApplications
+- NamedFieldPuns
+
+executables:
+  ethslurp:
+    source-dirs: ethslurp
+    main: Main.hs
+    ghc-options:
+    - -Werror
+    - -Wall
+  simple-storage:
+    source-dirs:
+    - simple-storage
+    - src
+    main: Main.hs
+    ghc-options:
+    - -Werror
+    - -Wall
+    dependencies:
+    - aeson
+    - bytestring
+    - errors
+    - mtl
+    - servant
+    - servant-server
+    - servant-client
+    - text
+    - wai
+    - wai-extra
+    - warp

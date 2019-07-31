@@ -1,10 +1,10 @@
-cabal-version: 2.0
+cabal-version: 1.24
 
 -- This file has been generated from package.yaml by hpack version 0.31.1.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: dc34b773289bbd55ba5fc890bde8c163405428cc234db002f31033deb8e83dbe
+-- hash: a3bed49ae95c1d25fe4050a7a8becae6c54eb55448af0851082f512862213c1f
 
 name:           hs-trillian-protos
 version:        0.1.0.0
@@ -26,6 +26,8 @@ extra-source-files:
     protos/google/protobuf/timestamp.proto
     protos/google/rpc/status.proto
     protos/trillian.proto
+    protos/trillian_admin_api.proto
+    protos/trillian_log_api.proto
 
 custom-setup
   setup-depends:
@@ -37,6 +39,10 @@ library
   exposed-modules:
       Proto.Trillian
       Proto.Trillian_Fields
+      Proto.TrillianLogApi
+      Proto.TrillianLogApi_Fields
+      Proto.TrillianAdminApi
+      Proto.TrillianAdminApi_Fields
       Proto.Google.Api.Annotations
       Proto.Google.Api.Annotations_Fields
       Proto.Google.Api.Http
@@ -57,27 +63,6 @@ library
       Proto.Crypto.Sigpb.Sigpb_Fields
   other-modules:
       Paths_hs_trillian_protos
-  autogen-modules:
-      Proto.Trillian
-      Proto.Trillian_Fields
-      Proto.Google.Api.Annotations
-      Proto.Google.Api.Annotations_Fields
-      Proto.Google.Api.Http
-      Proto.Google.Api.Http_Fields
-      Proto.Google.Protobuf.Any
-      Proto.Google.Protobuf.Any_Fields
-      Proto.Google.Protobuf.Duration
-      Proto.Google.Protobuf.Duration_Fields
-      Proto.Google.Protobuf.FieldMask
-      Proto.Google.Protobuf.FieldMask_Fields
-      Proto.Google.Protobuf.Timestamp
-      Proto.Google.Protobuf.Timestamp_Fields
-      Proto.Google.Rpc.Status
-      Proto.Google.Rpc.Status_Fields
-      Proto.Crypto.Keyspb.Keyspb
-      Proto.Crypto.Keyspb.Keyspb_Fields
-      Proto.Crypto.Sigpb.Sigpb
-      Proto.Crypto.Sigpb.Sigpb_Fields
   hs-source-dirs:
       src
   build-depends:

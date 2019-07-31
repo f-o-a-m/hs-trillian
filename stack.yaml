@@ -1,8 +1,10 @@
 resolver: lts-13.29
 
 packages:
+- ./hs-trillian-admin
 - ./hs-trillian-log
 - ./hs-trillian-protos
+- ./hs-trillian-examples
 
 extra-deps:
   - http2-client-0.9.0.0

@@ -24,9 +24,13 @@ dependencies:
 
 library:
   source-dirs: src
-  generated-exposed-modules:
+  exposed-modules:
   - Proto.Trillian
   - Proto.Trillian_Fields
+  - Proto.TrillianLogApi
+  - Proto.TrillianLogApi_Fields
+  - Proto.TrillianAdminApi
+  - Proto.TrillianAdminApi_Fields
   - Proto.Google.Api.Annotations
   - Proto.Google.Api.Annotations_Fields
   - Proto.Google.Api.Http

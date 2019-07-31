@@ -1,4 +1,4 @@
-name:                hs-trillian-log
+name:                hs-trillian-admin
 version:             0.1.0.0
 #synopsis:
 #description:
@@ -9,15 +9,15 @@ maintainer:          martin@foam.space
 copyright:           2019 Martin Allen
 category:            Web
 
+
 dependencies:
   - base >= 4.7 && < 5
+  - hs-trillian-protos
   - http2-client
   - http2-client-grpc
-  - hs-trillian-protos
-
 
 default-extensions:
-- DataKinds
+ - DataKinds
 
 library:
   source-dirs: src
@@ -25,4 +25,4 @@ library:
   - -Werror
   - -Wall
   exposed-modules:
-  - Trillian.Log.RPCCall
+  - Trillian.Admin.RPCCall
