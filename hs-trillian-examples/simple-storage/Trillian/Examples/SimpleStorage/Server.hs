@@ -19,7 +19,8 @@ import           Network.Wai.Handler.Warp              (run)
 import           Network.Wai.Middleware.RequestLogger  (logStdoutDev)
 import qualified Proto.TrillianLogApi_Fields           as TApi
 import           Servant
-import           Trillian.Examples.Config              (makeGrpcClientConfig, createTrillianLog)
+import           Trillian.Examples.Config              (createTrillianLog,
+                                                        makeGrpcClientConfig)
 import           Trillian.Examples.ConfigUtils         (makeConfig, readEnvVar)
 import           Trillian.Examples.SimpleStorage.Types
 import qualified Trillian.Log.RPCCall                  as LogRPC

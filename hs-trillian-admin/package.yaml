@@ -1,0 +1,39 @@
+name:                hs-trillian-admin
+version:             0.1.0.0
+#synopsis:
+#description:
+homepage:            https://github.com/githubuser/hs-trillian#readme
+license:             Apache
+author:              Martin Allen
+maintainer:          martin@foam.space
+copyright:           2019 Martin Allen
+category:            Web
+extra-source-files:
+- protos/**/*.proto
+
+custom-setup:
+  dependencies:
+    - base
+    - Cabal
+    - proto-lens-setup
+    - hs-trillian-protos
+
+dependencies:
+  - base >= 4.7 && < 5
+  - hs-trillian-protos
+  - proto-lens-setup
+  - proto-lens-runtime
+
+
+# default-extensions:
+
+library:
+  source-dirs: src
+  ghc-options:
+  - -Werror
+  - -Wall
+  exposed-modules:
+  - Trillian.Admin.RPCCall
+  generated-exposed-modules:
+  - Proto.TrillianAdminApi
+  - Proto.TrillianAdminApi_Fields

@@ -16,7 +16,7 @@ install: ## Runs stack install to compile library and counter example app
 	stack install
 
 hlint: ## Run hlint on all haskell projects
-	stack exec hlint -- -h .hlint.yaml hs-trillian-protos hs-trillian-log hs-trillian-examples
+	stack exec hlint -- -h .hlint.yaml hs-trillian-protos hs-trillian-log hs-trillian-examples hs-trillian-admin
 
 test: install ## Run the haskell test suite for all haskell projects
 	stack test
@@ -28,4 +28,5 @@ stylish: ## Run stylish-haskell over all haskell projects
 	find ./hs-trillian-examples -name "*.hs" | xargs stylish-haskell -c ./.stylish_haskell.yaml -i
 	find ./hs-trillian-log -name "*.hs" | xargs stylish-haskell -c ./.stylish_haskell.yaml -i
 	find ./hs-trillian-protos -name "*.hs" | xargs stylish-haskell -c ./.stylish_haskell.yaml -i
+	find ./hs-trillian-admin -name "*.hs" | xargs stylish-haskell -c ./.stylish_haskell.yaml -i
 

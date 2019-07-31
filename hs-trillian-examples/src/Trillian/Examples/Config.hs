@@ -1,23 +1,22 @@
 module Trillian.Examples.Config where
 
-import Network.HTTP2.Client (ClientError)
-import Control.Error (runExceptT)
-import           Network.GRPC.Client.Helpers   (GrpcClientConfig,
-                                                grpcClientConfigSimple)
+import           Control.Error                 (runExceptT)
+import           Control.Lens                  ((&), (.~), (^.))
+import qualified Data.ByteString.Base16        as BS16
+import           Data.Int                      (Int64)
+import           Data.ProtoLens.Message        (Message (defMessage))
+import           Data.String.Conversions       (cs)
+import           Network.GRPC.Client           (RawReply, uncompressed)
+import           Network.GRPC.Client.Helpers   (GrpcClient, GrpcClientConfig,
+                                                grpcClientConfigSimple,
+                                                _grpcClientConfigCompression)
+import           Network.HTTP2.Client          (ClientError, TooMuchConcurrency)
+import qualified Proto.Trillian_Fields         as T
+import qualified Proto.TrillianLogApi          as TApi
+import qualified Proto.TrillianLogApi_Fields   as TApi
 import           Trillian.Examples.ConfigUtils (getEnvVar, getEnvVarBool,
                                                 makeConfig, readEnvVar)
-import qualified Proto.TrillianLogApi_Fields           as TApi
-import qualified Proto.TrillianLogApi           as TApi
-import qualified Proto.Trillian_Fields as T
-import           Data.ProtoLens.Message                (Message (defMessage))
-import           Control.Lens                          ((&), (.~), (^.))
-import qualified Trillian.Log.RPCCall                  as LogRPC
-import           Network.GRPC.Client                   (RawReply)
-import           Network.GRPC.Client.Helpers           (GrpcClient)
-import Data.Int (Int64)
-import qualified Data.ByteString.Base16 as BS16
-import Data.String.Conversions (cs)
-import           Network.HTTP2.Client                  (TooMuchConcurrency)
+import qualified Trillian.Log.RPCCall          as LogRPC
 
 
 makeGrpcClientConfig :: IO GrpcClientConfig
@@ -28,8 +27,8 @@ makeGrpcClientConfig = do
       p <- readEnvVar "TRILLIAN_PORT"
       tls <- getEnvVarBool "TRILLIAN_USE_TLS"
       return (hn, p, tls)
-  return $
-    grpcClientConfigSimple hostName portNumber useTLS
+  let grpcCfg = grpcClientConfigSimple hostName portNumber useTLS
+  return grpcCfg {_grpcClientConfigCompression = uncompressed}
 
 createTrillianLog :: GrpcClient -> Int64 -> IO ()
 createTrillianLog grpc logId = do
@@ -49,7 +48,7 @@ createTrillianLog grpc logId = do
     errorPrefix = "Error in InitLog request : "
     formatResponse :: Either ClientError (
                         Either TooMuchConcurrency (
-                          (RawReply TApi.InitLogResponse)
+                          RawReply TApi.InitLogResponse
                         )
                       )
                    -> Either String TApi.InitLogResponse
@@ -58,5 +57,5 @@ createTrillianLog grpc logId = do
     formatResponse (Right (Right rr)) = case rr of
       Left errCode -> Left $ errorPrefix <> "Error Code " <> show errCode
       Right (_,_,ea) -> case ea of
-        Left e -> Left $ errorPrefix <> e
+        Left e  -> Left $ errorPrefix <> e
         Right a -> Right a
