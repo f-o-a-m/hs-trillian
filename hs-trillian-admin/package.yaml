@@ -8,24 +8,13 @@ author:              Martin Allen
 maintainer:          martin@foam.space
 copyright:           2019 Martin Allen
 category:            Web
-extra-source-files:
-- protos/**/*.proto
 
-custom-setup:
-  dependencies:
-    - base
-    - Cabal
-    - proto-lens-setup
-    - hs-trillian-protos
 
 dependencies:
   - base >= 4.7 && < 5
   - hs-trillian-protos
-  - proto-lens-setup
-  - proto-lens-runtime
   - http2-client
   - http2-client-grpc
-
 
 default-extensions:
  - DataKinds
@@ -37,6 +26,3 @@ library:
   - -Wall
   exposed-modules:
   - Trillian.Admin.RPCCall
-  generated-exposed-modules:
-  - Proto.TrillianAdminApi
-  - Proto.TrillianAdminApi_Fields

@@ -1,3 +1,2 @@
-import           Data.ProtoLens.Setup
-main = defaultMainGeneratingProtos "protos"
-
+import           Distribution.Simple
+main = defaultMain
